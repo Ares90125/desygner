@@ -65,6 +65,12 @@ RUN set -eux; \
 	apk del .build-deps
 
 ###> recipes ###
+###> doctrine/doctrine-bundle ###
+RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
+	docker-php-ext-install -j$(nproc) pdo_pgsql; \
+	apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5; \
+	apk del .pgsql-deps
+###< doctrine/doctrine-bundle ###
 ###< recipes ###
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
@@ -124,10 +130,13 @@ RUN rm $PHP_INI_DIR/conf.d/app.prod.ini; \
 
 COPY docker/php/conf.d/app.dev.ini $PHP_INI_DIR/conf.d/
 
+# RUN pear config-set http_proxy ${http_proxy} &&\
+#     pear config-set php_ini $PHP_INI_DIR/php.ini
+
 RUN set -eux; \
 	apk add --no-cache --virtual .build-deps $PHPIZE_DEPS; \
-	pecl install xdebug; \
-	docker-php-ext-enable xdebug; \
+	# pecl install xdebug; \
+	# docker-php-ext-enable xdebug; \
 	apk del .build-deps
 
 RUN rm -f .env.local.php
