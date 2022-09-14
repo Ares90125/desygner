@@ -1,17 +1,19 @@
 <?php
 namespace App\Controller;
 
+use App\Responses\UserResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class AuthController extends AbstractController
+class MeController extends AbstractController
 {
-    #[Route('/login')]
-    public function login(): Response
+    #[Route('/api/me', name: 'api_me')]
+    public function me(): Response
     {
+        $user = $this->getUser();
         return $this->json([
-            'success'   =>  true,
+            'user' => UserResponse::toArray($user)
         ]);
     }
 }
