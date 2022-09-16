@@ -35,17 +35,18 @@ Then this image should be added to my personal library
 6. Run `php bin/console doctrine:fixtures:load`
 
 Then the following mock users are created
-    - Admininstrators
-        - admin1@d.com---123123123
-        - admin2@d.com---123123123
-    - Frontend Developers
-        - developer1@d.com---123123123
-        - developer2@d.com---123123123
-    - Users
-        - user1@d.com---123123123
-        - user2@d.com---123123123
-        - ...
-        - user10@d.com---123123123
+
+- Admininstrators
+    - admin1@d.com---123123123
+    - admin2@d.com---123123123
+- Frontend Developers
+    - developer1@d.com---123123123
+    - developer2@d.com---123123123
+- Users
+    - user1@d.com---123123123
+    - user2@d.com---123123123
+    - ...
+    - user10@d.com---123123123
 
 7. Run `yarn install`
 8. Run `yarn watch`
