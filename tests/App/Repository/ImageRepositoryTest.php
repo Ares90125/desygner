@@ -6,30 +6,11 @@ use App\Entity\Image;
 use App\Entity\Tag;
 use App\Repository\ImageRepository;
 use App\Repository\TagRepository;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use Faker\Factory;
 
-class ImageRepositoryTest extends KernelTestCase
+class ImageRepositoryTest extends BaseRepositoryTest
 {
-    protected $faker;
-    /**
-     * @var \Doctrine\ORM\EntityManager
-     */
-    private $entityManager;
-
-    protected function setUp(): void
-    {
-        $kernel = self::bootKernel();
-
-        $this->entityManager = $kernel->getContainer()
-            ->get('doctrine')
-            ->getManager();
-
-        $this->faker = Factory::create();
-    }
     public function testGetWithTagSearchQueryBuilder(): void
     {
-        $kernel = self::bootKernel();
 
         // $this->assertSame('test', $kernel->getEnvironment());
         // $routerService = static::getContainer()->get('router');
@@ -66,14 +47,6 @@ class ImageRepositoryTest extends KernelTestCase
         $this->assertContains($image1->getId(), $searchedIds);
         $this->assertContains($image2->getId(), $searchedIds);
     }
-
-    protected function tearDown(): void
-    {
-        parent::tearDown();
-        $this->entityManager->close();
-        $this->entityManager = null;
-    }
-
     private function createImagesWithTags()
     {
         $imageRepository = static::getContainer()->get(ImageRepository::class);

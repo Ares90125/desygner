@@ -47,6 +47,8 @@ class ImageService
         $tagIds = \array_map(function($item) { return $item->getId(); }, $tags );
 
         $imageQb = $this->imageRepository->getWithTagSearchQueryBuilder($tagIds);
+        if ($page < 1) $page = 1;
+        if ($size < 1) $size = 20;
         $offset = ($page - 1) * $size;
         return $imageQb->setMaxResults($size)
             ->setFirstResult($offset)

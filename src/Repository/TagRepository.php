@@ -48,7 +48,7 @@ class TagRepository extends ServiceEntityRepository
         }
         return $qb
             ->setMaxResults(100)
-            ->orderBy('id', 'DESC')
+            ->orderBy('t.id', 'DESC')
             ->getQuery()
             ->getResult();
 
