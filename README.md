@@ -49,11 +49,11 @@ Then the following mock users are created
 
 7. Run `yarn install`
 8. Run `yarn watch`
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+9. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
+10. Run `docker compose down --remove-orphans` to stop the Docker containers.
 
 ## Test
-4. Run `php bin/console --env=test doctrine:database:create`
-5. Run `php bin/console --env=test doctrine:schema:create`
-7. Run `php bin/phpunit`
+1. Run `php bin/console --env=test doctrine:database:create`
+2. Run `php bin/console --env=test doctrine:schema:create`
+3. Run `php bin/phpunit`
 
