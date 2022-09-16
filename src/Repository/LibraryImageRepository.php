@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\LibraryImage;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,18 @@ class LibraryImageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, LibraryImage::class);
+    }
+
+    public function getLibraryImages(User $user)
+    {
+        $libraryImages = $this->createQueryBuilder('lm')
+            ->andWhere('lm.user = :user')
+            ->setParameter('user', $user)
+            ->innerJoin('lm.image', 'm')
+            ->select('lm, m')
+            ->getQuery()
+            ->getResult();
+        return \array_map(function($item) { return $item->getImage(); }, $libraryImages);
     }
 
     public function add(LibraryImage $entity, bool $flush = false): void
