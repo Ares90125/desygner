@@ -39,13 +39,13 @@ Then the following mock users are created
         - admin1@d.com---123123123
         - admin2@d.com---123123123
     - Frontend Developers
-        - developer1@d.com
-        - developer2@d.com
+        - developer1@d.com---123123123
+        - developer2@d.com---123123123
     - Users
-        - user1@d.com
-        - user2@d.com
+        - user1@d.com---123123123
+        - user2@d.com---123123123
         - ...
-        - user10@d.com
+        - user10@d.com---123123123
 
 7. Run `yarn install`
 8. Run `yarn watch`
