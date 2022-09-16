@@ -69,4 +69,32 @@ abstract class BaseApiControllerTest extends ApiTestCase
         $this->token = $data->token;
         return $this->token;
     }
+
+    protected function getUser($role)
+    {
+        $testUserMail = 'user@dsygner.com';
+        switch ($role)
+        {
+            case 'ROLE_ADMIN':
+                $testUserMail = 'admin@dsygner.com'; break;
+            case 'ROLE_DEV':
+                $testUserMail = 'dev@dsygner.com'; break;
+            case 'ROLE_USER':
+                $testUserMail = 'user@dsygner.com'; break;
+        }
+
+        $user = $this->userRepository->findOneByEmail($testUserMail);
+        if (!$user) {
+
+            $passwordHasher = static::getContainer()->get(UserPasswordHasherInterface::class);
+
+            $user = new User;
+            $user->setEmail($testUserMail);
+            $user->setName("User");
+            $user->setPassword($passwordHasher->hashPassword($user, '123123123'));
+            $user->setRoles([$role]);
+            $this->userRepository->add($user, true);
+        }
+        return $this->userRepository->findOneByEmail($testUserMail);
+    }
 }
