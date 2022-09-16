@@ -57,3 +57,24 @@ Then the following mock users are created
 2. Run `php bin/console --env=test doctrine:schema:create`
 3. Run `php bin/phpunit`
 
+## Screenshots
+
+#### Administrator Dashboard
+![image](https://user-images.githubusercontent.com/50335943/190648587-8a7417a6-f98d-42a9-96ac-cf2a5e07bbae.png)
+Administrator can upload images to the platform, switching url mode or local image upload.
+
+On the right plane, images will be displayed, which is uploaded by the current administrator.
+
+#### Developer Dashboard
+![image](https://user-images.githubusercontent.com/50335943/190649166-06fe3463-1e64-44e4-8c60-0727834f539d.png)
+Front end developers can search images from different providers. Search query will be done debounced as you type on the search input.
+
+#### User Dashboard
+![image](https://user-images.githubusercontent.com/50335943/190649504-3d650b68-f8e0-4f03-9883-f8922c614672.png)
+User dashboard looks similar to developer's dashboard.
+
+On the left panel, the user can search image. And click the save button on the top right of the image card to save in the personal library
+
+On the right panel, the current user's library images will be displayed as the user save the images on the left.
+
+
