@@ -22,6 +22,7 @@ ENV APP_ENV=prod
 
 WORKDIR /srv/app
 
+
 # persistent / runtime deps
 RUN apk add --no-cache \
 		acl \
@@ -69,7 +70,9 @@ RUN set -eux; \
 RUN apk add --no-cache --virtual .pgsql-deps postgresql-dev; \
 	docker-php-ext-install -j$(nproc) pdo pdo_mysql;
 
+RUN apk update && apk add bash;
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
 
 ###< doctrine/doctrine-bundle ###
 ###< recipes ###

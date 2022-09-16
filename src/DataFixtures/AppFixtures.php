@@ -33,7 +33,7 @@ class AppFixtures extends Fixture
             $developer->setEmail("developer$i@d.com");
             $developer->setName("FE Developer$i");
             $developer->setPassword($this->passwordHasher->hashPassword($developer, '123123123'));
-            $developer->setRoles(['ROLE_ADMIN']);
+            $developer->setRoles(['ROLE_DEV']);
             $manager->persist($developer);
         }
 
