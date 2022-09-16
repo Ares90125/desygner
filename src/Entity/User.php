@@ -35,9 +35,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'user')]
     private $images;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: LibraryImage::class)]
+    private Collection $libraryImages;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
+        $this->libraryImages = new ArrayCollection();
     }
     public function getImages(): Collection
     {
@@ -121,5 +125,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, LibraryImage>
+     */
+    public function getLibraryImages(): Collection
+    {
+        return $this->libraryImages;
+    }
+
+    public function addLibraryImage(LibraryImage $libraryImage): self
+    {
+        if (!$this->libraryImages->contains($libraryImage)) {
+            $this->libraryImages->add($libraryImage);
+            $libraryImage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLibraryImage(LibraryImage $libraryImage): self
+    {
+        if ($this->libraryImages->removeElement($libraryImage)) {
+            // set the owning side to null (unless already changed)
+            if ($libraryImage->getUser() === $this) {
+                $libraryImage->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

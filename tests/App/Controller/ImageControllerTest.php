@@ -59,7 +59,6 @@ class ImageControllerTest extends BaseApiControllerTest
     public function testRetrieve(): void
     {
         $image = $this->createImage();
-        print('image created, id: ' . $image->getId());
 
         $token = $this->getToken('ROLE_ADMIN');
         $client = $this->createClientWithCredentials($token);
@@ -74,7 +73,7 @@ class ImageControllerTest extends BaseApiControllerTest
         $this->assertResponseStatusCodeSame(404);
     }
 
-    private function createImage(): Image
+    protected function createImage(): Image
     {
         $imageRepository = static::getContainer()->get(ImageRepository::class);
         $user = $this->getUser('ROLE_ADMIN');
@@ -86,7 +85,7 @@ class ImageControllerTest extends BaseApiControllerTest
         $imageRepository->add($image, true);
         return $image;
     }
-    private function getLastImage(): Image
+    protected function getLastImage(): Image
     {
         /**
          * @var ImageRepository $imageRepository
