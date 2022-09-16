@@ -9,7 +9,7 @@ class UserResponse
 {
     public static function toArray(User|array|Collection $user)
     {
-        if (\is_array($user)) {
+        if (\is_array($user) || $user instanceof Collection) {
             return \array_map(function ($item) { return self::toArray($item); }, \is_array($user) ? $user : $user->toArray());
         }
         return [

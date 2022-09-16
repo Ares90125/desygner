@@ -61,6 +61,7 @@ class ImageRepositoryTest extends BaseRepositoryTest
         $tags = $tagRepository->findAll();
         foreach($tags as $tag)
         {
+
             $image = new Image;
             /**
              * currently faker->url() is buggy

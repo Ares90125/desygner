@@ -37,13 +37,11 @@ const Root = (props) => {
             navigate('/login');
             return;
         } else if (token && !session) {
-            console.log(loading, session)
             if (loading) return;
             setLoading(true);
             Api.get('/api/me')
             .then(response => {
               dispatch(setSession(response.user));
-              console.log(response.user)
             })
             .finally(() => {
                 setLoading(false);

@@ -3,7 +3,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Image;
 use App\Entity\Tag;
-use App\Form\ImageType;
+use App\Entity\User;
 use App\Repository\ImageRepository;
 use App\Repository\TagRepository;
 use App\Responses\ImageResponse;
@@ -54,6 +54,7 @@ class AdminController extends AbstractController
         if (!empty($data['tags'])) {
             foreach($data['tags'] as $tagText)
             {
+                if (!$tagText) continue;
                 $tag = $this->tagRepository->findOneBy(['text' => $tagText]);
                 if (!$tag) {
                     $tag = new Tag;
@@ -65,5 +66,16 @@ class AdminController extends AbstractController
         }
         $this->imageRepository->add($image, true);
         return $this->json(ImageResponse::toArray($image));
+    }
+
+    #[Route('/api/admin/images', name: "image_get_mine", methods: ['GET'])]
+    public function getMyImages()
+    {
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        $images = $this->imageRepository->findBy(['user' => $user], ['id' => 'DESC']);
+        return $this->json(ImageResponse::toArray($images));
     }
 }

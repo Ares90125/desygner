@@ -22,12 +22,19 @@ class ImageRepository extends ServiceEntityRepository
         parent::__construct($registry, Image::class);
     }
 
-    public function getWithTagSearchQueryBuilder(array $tagIds): QueryBuilder
+    public function getWithTagSearchQueryBuilder(array $tagIds, $providerUserId = null): QueryBuilder
     {
         $qb = $this->createQueryBuilder('m')
             ->innerJoin('m.tags', 'tag');
         $qb->andWhere($qb->expr()->in('tag.id', ':tagIds'))
             ->setParameter('tagIds', $tagIds);
+
+        if ($providerUserId) {
+            $qb
+                ->join('m.user', 'user')
+                ->andWhere('user.id = :providerId')
+                ->setParameter('providerId', $providerUserId);
+        }
         return $qb->orderBy('m.id', 'DESC');
     }
 

@@ -41,12 +41,12 @@ class ImageService
     }
 
 
-    public function searchImage($q, $page, $size): array
+    public function searchImage($q, $providerId, $page, $size): array
     {
         $tags = $this->tagRepository->searchByTerm($q);
         $tagIds = \array_map(function($item) { return $item->getId(); }, $tags );
 
-        $imageQb = $this->imageRepository->getWithTagSearchQueryBuilder($tagIds);
+        $imageQb = $this->imageRepository->getWithTagSearchQueryBuilder($tagIds, $providerId);
         if ($page < 1) $page = 1;
         if ($size < 1) $size = 20;
         $offset = ($page - 1) * $size;

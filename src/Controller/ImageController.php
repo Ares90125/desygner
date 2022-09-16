@@ -23,11 +23,12 @@ class ImageController extends AbstractController
     {
         $page = $request->query->get('page');
         $size = $request->query->get('size');
+        $providerId = $request->query->get('providerId');
         $q = $request->query->get('q');
         $page = $page?: 1;
         $size = $size?: 20;
 
-        $images = $this->imageService->searchImage($q, $page, $size);
+        $images = $this->imageService->searchImage($q, $providerId, $page, $size);
 
         return $this->json(ImageResponse::toArray($images));
     }
