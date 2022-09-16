@@ -22,7 +22,7 @@ class ImageCreateValidator
         $constraint = new Assert\Collection([
             'provider'  =>  new Assert\Optional([
                 new Assert\Required(),
-                new Assert\Length(['max' => 10])
+                new Assert\Length(['max' => 20])
             ]),
             'tags'      =>  new Assert\Optional([
                 new Assert\Type('array'),

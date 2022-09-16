@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Image;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +20,15 @@ class ImageRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Image::class);
+    }
+
+    public function getWithTagSearchQueryBuilder(array $tagIds): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('m')
+            ->innerJoin('m.tags', 'tag');
+        $qb->andWhere($qb->expr()->in('tag.id', ':tagIds'))
+            ->setParameter('tagIds', $tagIds);
+        return $qb->orderBy('m.id', 'DESC');
     }
 
     public function add(Image $entity, bool $flush = false): void
